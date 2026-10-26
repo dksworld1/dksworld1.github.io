@@ -66,6 +66,7 @@ a:hover { color: #344eaa; }
 .archive-intro .dashboard-eyebrow { color: #7184c9; }
 .archive-intro > p:last-child { color: #74809a; font-size: 14px; }
 .archive-category { margin-top: 32px; scroll-margin-top: 24px; }
+.archive-category:target .section-heading-row { padding-left: 12px; border-left: 3px solid var(--blue); }
 .archive-category .section-heading-row { align-items: center; }
 .archive-count { color: #8993a8; font-size: 12px; }
 .archive-empty { margin-top: 20px; }

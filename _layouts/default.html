@@ -22,7 +22,7 @@
             <nav aria-label="카테고리">
               {% for category in site.categories %}
                 {% assign category_slug = category[0] | slugify %}
-                <a class="sidebar-link sidebar-category" href="{{ '/categories/' | relative_url }}#{{ category_slug }}">
+                <a class="sidebar-link sidebar-category" href="{{ '/categories/' | relative_url }}#category-{{ category_slug }}">
                   <span>{{ category[0] }}</span><span class="sidebar-count">{{ category[1].size }}</span>
                 </a>
               {% endfor %}

@@ -13,7 +13,7 @@ permalink: /categories/
 {% if site.categories.size > 0 %}
 {% for category in site.categories %}
 {% assign category_slug = category[0] | slugify %}
-<section class="archive-category" id="{{ category_slug }}">
+<section class="archive-category" id="category-{{ category_slug }}">
 <div class="section-heading-row">
 <h2>{{ category[0] }}</h2>
 <span class="archive-count">{{ category[1].size }}개의 글</span>
