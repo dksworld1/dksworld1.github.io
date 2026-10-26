@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'ko-KR' }}">
+  {% include head.html %}
+  <body>
+    {% include header.html %}
+    <main class="page-content" aria-label="Content">
+      <div class="dashboard-shell wrapper">
+        <aside class="category-sidebar" aria-label="블로그 탐색">
+          <p class="sidebar-eyebrow">BROWSE</p>
+          <h2 class="sidebar-heading">둘러보기</h2>
+          <nav>
+            <a class="sidebar-link{% if page.url == '/' %} is-active{% endif %}" href="{{ '/' | relative_url }}">
+              <span>홈</span>
+            </a>
+            <a class="sidebar-link{% if page.url contains '/categories/' %} is-active{% endif %}" href="{{ '/categories/' | relative_url }}">
+              <span>전체 글</span><span class="sidebar-count">{{ site.posts.size }}</span>
+            </a>
+          </nav>
+          <div class="sidebar-divider"></div>
+          <p class="sidebar-eyebrow">CATEGORIES</p>
+          {% if site.categories.size > 0 %}
+            <nav aria-label="카테고리">
+              {% for category in site.categories %}
+                {% assign category_slug = category[0] | slugify %}
+                <a class="sidebar-link sidebar-category" href="{{ '/categories/' | relative_url }}#{{ category_slug }}">
+                  <span>{{ category[0] }}</span><span class="sidebar-count">{{ category[1].size }}</span>
+                </a>
+              {% endfor %}
+            </nav>
+          {% else %}
+            <p class="sidebar-empty">글에 카테고리를 지정하면<br>여기에 표시됩니다.</p>
+          {% endif %}
+          <div class="sidebar-note">
+            <span class="sidebar-note-dot"></span>
+            <span>생각과 배움을 기록합니다</span>
+          </div>
+        </aside>
+        <section class="dashboard-main">
+          {{ content }}
+        </section>
+      </div>
+    </main>
+    {% include footer.html %}
+  </body>
+</html>
