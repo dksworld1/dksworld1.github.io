@@ -12,7 +12,7 @@
             <a class="sidebar-link{% if page.url == '/' %} is-active{% endif %}" href="{{ '/' | relative_url }}">
               <span>홈</span>
             </a>
-            <a class="sidebar-link{% if page.url contains '/categories/' %} is-active{% endif %}" href="{{ '/categories/' | relative_url }}">
+            <a class="sidebar-link sidebar-archive{% if page.url contains '/categories/' %} is-active{% endif %}" href="{{ '/categories/' | relative_url }}">
               <span>전체 글</span><span class="sidebar-count">{{ site.posts.size }}</span>
             </a>
           </nav>
@@ -22,7 +22,7 @@
             <nav aria-label="카테고리">
               {% for category in site.categories %}
                 {% assign category_slug = category[0] | slugify %}
-                <a class="sidebar-link sidebar-category" href="{{ '/categories/' | relative_url }}#category-{{ category_slug }}">
+                <a class="sidebar-link sidebar-category" data-category-target="category-{{ category_slug }}" href="{{ '/categories/' | relative_url }}#category-{{ category_slug }}">
                   <span>{{ category[0] }}</span><span class="sidebar-count">{{ category[1].size }}</span>
                 </a>
               {% endfor %}
@@ -41,5 +41,34 @@
       </div>
     </main>
     {% include footer.html %}
+    <script>
+      (() => {
+        const archiveLink = document.querySelector('.sidebar-archive');
+        const categoryLinks = Array.from(document.querySelectorAll('.sidebar-category[data-category-target]'));
+        if (!archiveLink) return;
+
+        const updateActiveCategory = () => {
+          let targetId = window.location.hash.slice(1);
+          try { targetId = decodeURIComponent(targetId); } catch (_) {}
+          const activeCategory = categoryLinks.find((link) =>
+            link.dataset.categoryTarget === targetId && document.getElementById(targetId)
+          );
+
+          categoryLinks.forEach((link) => {
+            link.classList.toggle('is-active', link === activeCategory);
+            if (link === activeCategory) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+          });
+
+          const archiveIsActive = !activeCategory && window.location.pathname === '{{ "/categories/" | relative_url }}';
+          archiveLink.classList.toggle('is-active', archiveIsActive);
+          if (archiveIsActive) archiveLink.setAttribute('aria-current', 'page');
+          else archiveLink.removeAttribute('aria-current');
+        };
+
+        updateActiveCategory();
+        window.addEventListener('hashchange', updateActiveCategory);
+      })();
+    </script>
   </body>
 </html>
