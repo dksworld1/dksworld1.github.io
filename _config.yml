@@ -1,0 +1,26 @@
+title: "dksworld1의 블로그"
+description: "생각과 기록을 모아두는 공간"
+url: "https://dksworld1.github.io"
+baseurl: ""
+lang: ko-KR
+timezone: Asia/Seoul
+
+theme: minima
+markdown: kramdown
+permalink: /:categories/:year/:month/:day/:title/
+
+header_pages:
+  - about.md
+
+minima:
+  skin: classic
+  date_format: "%Y년 %-m월 %-d일"
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
